@@ -1,0 +1,9 @@
+*.DS_Store
+*.log
+*.zip
+.idea
+.sass.vscode
+/shop/__pycache__
+/shop/migrations
+*.pyc
+/soft/__pycache__
