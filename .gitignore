@@ -7,3 +7,6 @@
 /shop/migrations
 *.pyc
 /soft/__pycache__
+soft/__pycache__/settings.cpython-36.pyc
+/static/
+/media/
