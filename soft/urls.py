@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 urlpatterns = [
-    url(r'^api/', include("api.urls", namespace='api')),
+    url(r'^shop/', include("shop.urls", namespace="shop")),
+    url(r'^api/', include("api.urls", namespace="api")),
     url(r'^admin/', admin.site.urls, name="admin"),
 ]

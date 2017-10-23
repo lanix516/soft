@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from shop.models import *
 from shop.serializers import WebSiteSerializer
 # Create your views here.
@@ -26,7 +27,21 @@ def get_site(request):
         query_set = query_set.filter(has_link=True)
     if has_phone:
         query_set = query_set.filter(has_phone=True)
-    site_dict = WebSiteSerializer(query_set, many=True)
+
+    paginator = Paginator(query_set, 12)
+    page = int(request.GET.get('page', 1))
+    try:
+        page_content = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        page_content = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        page_content = paginator.page(paginator.num_pages)
+
+    site_dict = WebSiteSerializer(page_content, many=True)
+    return_dict["page"] = page
+    return_dict["pageCount"] = paginator.num_pages
     return_dict["resData"] = site_dict.data
     return JsonResponse(return_dict)
 

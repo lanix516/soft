@@ -24,6 +24,8 @@ class PortalSiteSerializer(serializers.ModelSerializer):
 
 
 class WebSiteSerializer(serializers.ModelSerializer):
+    site_class = SiteClassSerializer()
+
     class Meta:
         model = WebSite
         fields = ('id', 'name', 'star', 'example', 'price', 'status', 'remark', 'has_phone', 'has_IM', 'has_link',
